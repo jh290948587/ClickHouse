@@ -1107,7 +1107,7 @@ static StreamLocalLimits getLimitsForStorage(const Settings & settings, const Se
     return limits;
 }
 
-static void addEmptySource(QueryPlan & query_plan, const Block & source_header, SelectQueryInfo & query_info)
+static void addEmptySourceToQueryPlan(QueryPlan & query_plan, const Block & source_header, const SelectQueryInfo & query_info)
 {
     Pipe pipe(std::make_shared<NullSource>(source_header));
 
@@ -1511,7 +1511,7 @@ void InterpreterSelectQuery::executeFetchColumns(
         {
             auto header = metadata_snapshot->getSampleBlockForColumns(
                     required_columns, storage->getVirtuals(), storage->getStorageID());
-            addEmptySource(query_plan, header, query_info);
+            addEmptySourceToQueryPlan(query_plan, header, query_info);
         }
 
         /// Extend lifetime of context, table lock, storage. Set limits and quota.
