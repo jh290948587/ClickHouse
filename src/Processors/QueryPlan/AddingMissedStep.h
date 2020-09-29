@@ -20,8 +20,6 @@ public:
 
     void transformPipeline(QueryPipeline & pipeline) override;
 
-    void describeActions(FormatSettings & settings) const override;
-
 private:
     const ColumnDefaults column_defaults;
     const Context & context;
